@@ -120,6 +120,8 @@ public class Enemy : MonoBehaviour, IDeadZone
         {
             _collider2D.enabled = false;
             
+            EventManager.TriggerEvent(Events.ENEMY_DIED);
+            
             Destroy(gameObject, 2f);
         }
     }

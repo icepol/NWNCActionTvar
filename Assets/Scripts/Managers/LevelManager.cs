@@ -14,7 +14,6 @@ public class LevelManager : MonoBehaviour
         EventManager.AddListener(Events.LEVEL_FAILED, OnLevelFailed);
         EventManager.AddListener(Events.LEVEL_FINISHED, OnLevelFinished);
         EventManager.AddListener(Events.TRANSITION_CLOSE_FINISHED, OnTransitionCloseFinished);
-        EventManager.AddListener(Events.NET_ALL_REPAIRED, OnNetAllRepaired);
     }
 
     void Start()
@@ -28,7 +27,6 @@ public class LevelManager : MonoBehaviour
         EventManager.RemoveListener(Events.LEVEL_FAILED, OnLevelFailed);
         EventManager.RemoveListener(Events.LEVEL_FINISHED, OnLevelFinished);
         EventManager.RemoveListener(Events.TRANSITION_CLOSE_FINISHED, OnTransitionCloseFinished);
-        EventManager.RemoveListener(Events.NET_ALL_REPAIRED, OnNetAllRepaired);
     }
 
     void OnLevelStart()
@@ -91,11 +89,5 @@ public class LevelManager : MonoBehaviour
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(levelIndex + 1);
-    }
-    
-    void OnNetAllRepaired()
-    {
-        // all are repaired, we can switch to next level
-        EventManager.TriggerEvent(Events.LEVEL_FINISHED);
     }
 }

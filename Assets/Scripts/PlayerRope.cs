@@ -21,6 +21,8 @@ public class PlayerRope : MonoBehaviour
 
     public void Show()
     {
+        EventManager.TriggerEvent(Events.PLAYER_SHOOT);
+        
         _spriteRenderer.enabled = true;
 
         Vector3 start = transform.position;
