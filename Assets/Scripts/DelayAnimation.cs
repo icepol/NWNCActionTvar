@@ -25,7 +25,7 @@ public class DelayAnimation : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(0f, maxDelay));
 
-        _animator.playbackTime = startAtRandomPosition ? Random.Range(0f, _animator.GetCurrentAnimatorClipInfo(0).Length) : 0;
         _animator.enabled = true;
+        _animator.playbackTime = startAtRandomPosition ? Random.Range(0f, _animator.GetCurrentAnimatorClipInfo(0).Length) : 0;
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Steak : MonoBehaviour
 {
     [SerializeField] private GameObject arrow;
+    [SerializeField] private ScoreBalloon scoreBalloonPrefab;
 
     private Animator _animator;
     private bool _isAvailable = true;
@@ -33,6 +32,9 @@ public class Steak : MonoBehaviour
             EventManager.TriggerEvent(Events.TAKE_STAKE);
             
             GameState.Score += 25;
+            
+            ScoreBalloon scoreBalloon = Instantiate(scoreBalloonPrefab, transform.position, Quaternion.identity);
+            scoreBalloon.SetScore(25);
             
             Destroy(gameObject,1);
         }

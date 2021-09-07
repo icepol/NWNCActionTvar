@@ -158,6 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 3555014217235060700}
+  scoreBalloonPrefab: {fileID: 2850586209554490029, guid: 39bac985d31424f899a90b2703ca1554,
+    type: 3}
 --- !u!95 &897709191
 Animator:
   serializedVersion: 3

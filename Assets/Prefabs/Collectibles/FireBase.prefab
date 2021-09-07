@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 1557712433489989299}
+  scoreBalloonPrefab: {fileID: 2850586209554490029, guid: 39bac985d31424f899a90b2703ca1554,
+    type: 3}
 --- !u!61 &1763025649914873916
 BoxCollider2D:
   m_ObjectHideFlags: 0

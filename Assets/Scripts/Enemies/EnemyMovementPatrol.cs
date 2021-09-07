@@ -8,6 +8,8 @@ public class EnemyMovementPatrol : MonoBehaviour
 
     [SerializeField] private float sleepingTime;
 
+    [SerializeField] private ScoreBalloon scoreBalloonPrefab;
+
     private Rigidbody2D _body;
     private Animator _animator;
     private Enemy _enemy;
@@ -55,11 +57,14 @@ public class EnemyMovementPatrol : MonoBehaviour
                 float direction = transform.position.x - _enemy.CurrentPlayerPosition.x > 0 ? 1f : -1f;
             
                 _body.AddForce(new Vector2(direction * 150f, 150f));
+                
+                GameState.Score += 10;
+                
+                var scoreBalloon = Instantiate(scoreBalloonPrefab, transform.position, Quaternion.identity);
+                scoreBalloon.SetScore(10);
             
                 _enemy.ChangeState(Enemy.EnemyState.Dead);
 
-                GameState.Score += 10;
-                
                 break;
             }
             default:

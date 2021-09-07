@@ -3,6 +3,7 @@
 public class FireBase : MonoBehaviour
 {
     [SerializeField] private GameObject arrow;
+    [SerializeField] private ScoreBalloon scoreBalloonPrefab;
 
     private bool _isAvailable;
     
@@ -30,6 +31,9 @@ public class FireBase : MonoBehaviour
             
             GameState.Score += 100;
             
+            var scoreBalloon = Instantiate(scoreBalloonPrefab, transform.position, Quaternion.identity);
+            scoreBalloon.SetScore(100);
+            
             EventManager.TriggerEvent(Events.LEVEL_FINISHED);
         }
     }
@@ -37,7 +41,7 @@ public class FireBase : MonoBehaviour
     private void OnTakeSteak()
     {
         _isAvailable = true;
-        
+
         arrow.SetActive(true);
     }
 }

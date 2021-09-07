@@ -197,6 +197,8 @@ MonoBehaviour:
   moveForce: 150
   maxVelocity: 1.5
   sleepingTime: 1.5
+  scoreBalloonPrefab: {fileID: 2850586209554490029, guid: 39bac985d31424f899a90b2703ca1554,
+    type: 3}
 --- !u!114 &8786975916934692630
 MonoBehaviour:
   m_ObjectHideFlags: 0

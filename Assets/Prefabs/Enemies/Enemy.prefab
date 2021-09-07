@@ -164,6 +164,8 @@ MonoBehaviour:
   moveForce: 100
   maxVelocity: 1.8
   jumpForce: 220
+  scoreBalloonPrefab: {fileID: 2850586209554490029, guid: 39bac985d31424f899a90b2703ca1554,
+    type: 3}
 --- !u!114 &2338924227158231459
 MonoBehaviour:
   m_ObjectHideFlags: 0
