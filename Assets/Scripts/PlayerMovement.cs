@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private bool _isJumpRequested;
+    private bool _isMovementEnabled;
 
     private void Awake()
     {
@@ -29,19 +31,22 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _isMovementEnabled = true;
+        
         EventManager.AddListener(Events.PLAYER_UNDER_ATTACK, OnHitPlayer);
+        EventManager.AddListener(Events.LEVEL_FINISHED, OnLevelFinished);
     }
 
     private void OnDestroy()
     {
         EventManager.RemoveListener(Events.PLAYER_UNDER_ATTACK, OnHitPlayer);
+        EventManager.RemoveListener(Events.LEVEL_FINISHED, OnLevelFinished);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_player.IsDead)
-            return;
+        if (_player.IsDead)  return;
         
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && CanJump())
         {
@@ -51,11 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_player.IsDead)
-            return;
-        
-        if (_player.IsUnderAttack)
-            return;
+        if (_player.IsDead) return;
+        if (_player.IsUnderAttack) return;
+        if (!_isMovementEnabled) return;
         
         float horizontal = _player.DoAttack ? 0 : Input.GetAxis("Horizontal");
         float vertical = _player.DoAttack ? 0: Input.GetAxis("Vertical");
@@ -86,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 moveForce.y = jumpForce;
                 _isJumpRequested = false;
+                
+                EventManager.TriggerEvent(Events.PLAYER_JUMP);
             }
 
             _body.AddForce(moveForce);
@@ -106,6 +111,11 @@ public class PlayerMovement : MonoBehaviour
     bool CanJump()
     {
         return _player.IsGrounded && !_player.IsOnLadder;
+    }
+    
+    private void OnLevelFinished()
+    {
+        _isMovementEnabled = false;
     }
 
     void OnHitPlayer(Vector3 attackForce)

@@ -1,13 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SoundsManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip playerAttack;
     [SerializeField] private AudioClip enemyDie;
-    [SerializeField] private AudioClip fire;
     [SerializeField] private AudioClip playerDie;
-    [SerializeField] private AudioClip toolCollected;
+    [SerializeField] private AudioClip playerHit;
+    [SerializeField] private AudioClip enemyHit;
+    [SerializeField] private AudioClip spawnEnemy;
+    [SerializeField] private AudioClip playerJump;
+    [SerializeField] private AudioClip takeSteak;
+    [SerializeField] private AudioClip findFire;
 
     private Transform _cameraTransform;
 
@@ -17,37 +20,80 @@ public class SoundsManager : MonoBehaviour
         
         EventManager.AddListener(Events.PLAYER_DIED, OnPlayerDied);
         EventManager.AddListener(Events.PLAYER_SHOOT, OnPlayerShoot);
+        EventManager.AddListener(Events.PLAYER_UNDER_ATTACK, OnPlayerUnderAttack);
+        EventManager.AddListener(Events.PLAYER_JUMP, OnPlayerJump);
+        EventManager.AddListener(Events.ENEMY_SPAWNED, OnEnemySpawned);
+        EventManager.AddListener(Events.ENEMY_UNDER_ATTACK, OnEnemyUnderAttack);
         EventManager.AddListener(Events.ENEMY_DIED, OnEnemyDied);
+        EventManager.AddListener(Events.TAKE_STAKE, OnTakeStake);
+        EventManager.AddListener(Events.LEVEL_FINISHED, OnLevelFinished);
     }
 
     private void OnDestroy()
     {
-        EventManager.RemoveListener(Events.PLAYER_DIED, OnPlayerDied);
-        EventManager.RemoveListener(Events.PLAYER_SHOOT, OnPlayerShoot);
-        EventManager.RemoveListener(Events.ENEMY_DIED, OnEnemyDied);
+        EventManager.AddListener(Events.PLAYER_DIED, OnPlayerDied);
+        EventManager.AddListener(Events.PLAYER_SHOOT, OnPlayerShoot);
+        EventManager.AddListener(Events.PLAYER_UNDER_ATTACK, OnPlayerUnderAttack);
+        EventManager.AddListener(Events.PLAYER_JUMP, OnPlayerJump);
+        EventManager.AddListener(Events.ENEMY_SPAWNED, OnEnemySpawned);
+        EventManager.AddListener(Events.ENEMY_UNDER_ATTACK, OnEnemyUnderAttack);
+        EventManager.AddListener(Events.ENEMY_DIED, OnEnemyDied);
+        EventManager.AddListener(Events.TAKE_STAKE, OnTakeStake);
+        EventManager.AddListener(Events.LEVEL_FINISHED, OnLevelFinished);
     }
 
-    public void OnEnemyDied()
+    private void OnPlayerUnderAttack(Vector3 _)
     {
-        if (enemyDie && Settings.IsSfxEnabled)
-            AudioSource.PlayClipAtPoint(enemyDie, _cameraTransform.position);
+        if (playerHit && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(playerHit, _cameraTransform.position);
     }
 
-    public void OnPlayerShoot()
+    private void OnPlayerJump()
     {
-        if (fire && Settings.IsSfxEnabled)
-            AudioSource.PlayClipAtPoint(fire, _cameraTransform.position);
+        if (playerJump && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(playerJump, _cameraTransform.position);
     }
 
-    public void OnPlayerDied()
+    private void OnEnemySpawned()
+    {
+        if (spawnEnemy && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(spawnEnemy, _cameraTransform.position);
+    }
+
+    private void OnEnemyUnderAttack()
+    {
+        if (enemyHit && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(enemyHit, _cameraTransform.position);
+    }
+
+    private void OnTakeStake()
+    {
+        if (takeSteak && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(takeSteak, _cameraTransform.position);
+    }
+
+    private void OnLevelFinished()
+    {
+        if (findFire && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(findFire, _cameraTransform.position);
+    }
+
+    private void OnPlayerDied()
     {
         if (playerDie && Settings.IsSfxEnabled)
             AudioSource.PlayClipAtPoint(playerDie, _cameraTransform.position);
     }
-    
-    public void OnToolCollected()
+
+    private void OnPlayerShoot()
     {
-        if (toolCollected && Settings.IsSfxEnabled)
-            AudioSource.PlayClipAtPoint(toolCollected, _cameraTransform.position);
+        if (playerAttack && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(playerAttack, _cameraTransform.position);
     }
+
+    private void OnEnemyDied()
+    {
+        if (enemyDie && Settings.IsSfxEnabled)
+            AudioSource.PlayClipAtPoint(enemyDie, _cameraTransform.position);
+    }
+    
 }

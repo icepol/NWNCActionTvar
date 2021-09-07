@@ -47,6 +47,8 @@ public class EnemyMovement : MonoBehaviour
                 float direction = transform.position.x - _enemy.CurrentPlayerPosition.x > 0 ? 1f : -1f;
             
                 _body.AddForce(new Vector2(direction * 150f, 150f));
+                
+                EventManager.TriggerEvent(Events.ENEMY_UNDER_ATTACK);
             
                 _enemy.ChangeState(Enemy.EnemyState.Dead);
 

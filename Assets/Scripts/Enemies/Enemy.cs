@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour, IDeadZone
     {
         _player = FindObjectOfType<Player>();
         
+        EventManager.TriggerEvent(Events.ENEMY_SPAWNED);
+        
         ChangeState(EnemyState.Spawned);
     }
 
