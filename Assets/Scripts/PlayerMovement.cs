@@ -116,6 +116,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnLevelFinished()
     {
         _isMovementEnabled = false;
+        
+        _body.velocity = Vector2.zero;
+        _animator.SetBool("IsRunning", false);
     }
 
     void OnHitPlayer(Vector3 attackForce)
